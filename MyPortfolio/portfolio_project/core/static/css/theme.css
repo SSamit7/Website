@@ -1,0 +1,582 @@
+/* ========================================
+   Computer-Based Terminal Theme
+   ======================================== */
+
+:root {
+    --primary: #10b981;      /* Emerald Green */
+    --primary-dark: #059669;
+    --primary-light: #6ee7b7;
+    --bg-primary: #030712;   /* Almost black */
+    --bg-secondary: #111827; /* Very dark gray */
+    --bg-tertiary: #1f2937; /* Dark gray */
+    --text-primary: #ecf0f1;
+    --text-secondary: #9ca3af;
+    --border-color: rgba(16, 185, 129, 0.3);
+    --accent: #06b6d4;       /* Cyan */
+}
+
+* {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+html, body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* ========================================
+   Background Animations
+   ======================================== */
+
+@keyframes moveDown {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.3;
+    }
+    90% {
+        opacity: 0.3;
+    }
+    100% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+
+@keyframes moveUp {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.2;
+    }
+    90% {
+        opacity: 0.2;
+    }
+    100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+    }
+}
+
+@keyframes moveRight {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.15;
+    }
+    90% {
+        opacity: 0.15;
+    }
+    100% {
+        transform: translateX(100vw);
+        opacity: 0;
+    }
+}
+
+@keyframes moveLeft {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.15;
+    }
+    90% {
+        opacity: 0.15;
+    }
+    100% {
+        transform: translateX(-100vw);
+        opacity: 0;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.05;
+    }
+    50% {
+        opacity: 0.15;
+    }
+}
+
+@keyframes float-slow {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+    }
+    25% {
+        transform: translateY(-20px) translateX(10px);
+    }
+    50% {
+        transform: translateY(-40px) translateX(-20px);
+    }
+    75% {
+        transform: translateY(-20px) translateX(20px);
+    }
+}
+
+@keyframes rotate-slow {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes flicker {
+    0%, 100% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 0.3;
+    }
+}
+
+/* Animated Background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(16, 185, 129, 0.03) 2px,
+            rgba(16, 185, 129, 0.03) 4px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 2px,
+            rgba(16, 185, 129, 0.03) 2px,
+            rgba(16, 185, 129, 0.03) 4px
+        );
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Floating Number Animation */
+.floating-number {
+    position: fixed;
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary);
+    opacity: 0.08;
+    z-index: 0;
+    pointer-events: none;
+    font-family: 'Courier New', monospace;
+}
+
+.floating-number:nth-child(1) {
+    left: 10%;
+    top: 20%;
+    animation: moveDown 15s linear infinite;
+}
+
+.floating-number:nth-child(2) {
+    right: 15%;
+    top: 40%;
+    animation: moveDown 20s linear infinite 2s;
+}
+
+.floating-number:nth-child(3) {
+    left: 20%;
+    top: 60%;
+    animation: moveDown 18s linear infinite 4s;
+}
+
+.floating-number:nth-child(4) {
+    right: 25%;
+    top: 10%;
+    animation: moveUp 22s linear infinite;
+}
+
+.floating-number:nth-child(5) {
+    left: 35%;
+    top: 50%;
+    animation: moveRight 25s linear infinite 3s;
+}
+
+.floating-number:nth-child(6) {
+    right: 35%;
+    top: 30%;
+    animation: moveLeft 20s linear infinite 1s;
+}
+
+.floating-number:nth-child(7) {
+    left: 5%;
+    top: 80%;
+    animation: moveDown 18s linear infinite 5s;
+}
+
+.floating-number:nth-child(8) {
+    right: 8%;
+    top: 70%;
+    animation: moveUp 21s linear infinite 2s;
+}
+
+/* Code Symbol Animation */
+.floating-symbol {
+    position: fixed;
+    font-size: 3rem;
+    opacity: 0.06;
+    z-index: 0;
+    pointer-events: none;
+    animation: float-slow 20s ease-in-out infinite;
+}
+
+.floating-symbol:nth-child(9) {
+    left: 15%;
+    top: 25%;
+    animation: float-slow 25s ease-in-out infinite;
+}
+
+.floating-symbol:nth-child(10) {
+    right: 10%;
+    top: 60%;
+    animation: float-slow 30s ease-in-out infinite 5s;
+}
+
+.floating-symbol:nth-child(11) {
+    left: 50%;
+    top: 15%;
+    animation: float-slow 28s ease-in-out infinite 3s;
+}
+
+/* Pulse Background Elements */
+.pulse-bg {
+    position: fixed;
+    border-radius: 50%;
+    opacity: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.pulse-bg:nth-child(12) {
+    width: 200px;
+    height: 200px;
+    left: 10%;
+    top: 20%;
+    background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+    animation: pulse 8s ease-in-out infinite;
+}
+
+.pulse-bg:nth-child(13) {
+    width: 150px;
+    height: 150px;
+    right: 15%;
+    bottom: 20%;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    animation: pulse 10s ease-in-out infinite 2s;
+}
+
+.pulse-bg:nth-child(14) {
+    width: 180px;
+    height: 180px;
+    left: 50%;
+    top: 50%;
+    background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+    animation: pulse 12s ease-in-out infinite 4s;
+}
+
+/* ========================================
+   Scrollbar Styling
+   ======================================== */
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-light);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+}
+
+/* ========================================
+   Typography
+   ======================================== */
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-light);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 2;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+p {
+    line-height: 1.6;
+    color: var(--text-secondary);
+    position: relative;
+    z-index: 2;
+}
+
+/* ========================================
+   Links & Hover Effects
+   ======================================== */
+
+a {
+    color: var(--primary-light);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+a:hover {
+    color: var(--primary);
+    text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+}
+
+/* ========================================
+   Buttons
+   ======================================== */
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary);
+    color: var(--bg-primary);
+    border: 2px solid var(--primary);
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+    position: relative;
+    z-index: 2;
+}
+
+.btn:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-light);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(-1px);
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--primary-light);
+    border: 2px solid var(--primary);
+}
+
+.btn-outline:hover {
+    background-color: var(--primary);
+    color: var(--bg-primary);
+}
+
+/* ========================================
+   Cards & Containers
+   ======================================== */
+
+.card {
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 2;
+}
+
+.card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+    transform: translateY(-4px);
+}
+
+.card-header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* ========================================
+   Code Block Style
+   ======================================== */
+
+code {
+    background-color: var(--bg-tertiary);
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: var(--accent);
+    font-size: 0.9em;
+    border-left: 3px solid var(--primary);
+}
+
+pre {
+    background-color: var(--bg-tertiary);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 3px solid var(--primary);
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+    border: none;
+    color: var(--primary-light);
+}
+
+/* ========================================
+   Animations
+   ======================================== */
+
+@keyframes glow {
+    0%, 100% {
+        text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+.float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.slide-in {
+    animation: slide-in 0.6s ease-out;
+}
+
+/* ========================================
+   Terminal-like Elements
+   ======================================== */
+
+.terminal-header {
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px 8px 0 0;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.terminal-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--primary);
+    animation: pulse 3s ease-in-out infinite;
+}
+
+.terminal-content {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 1.5rem;
+}
+
+/* ========================================
+   Gradient Text
+   ======================================== */
+
+.gradient-text {
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ========================================
+   Responsive Adjustments
+   ======================================== */
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .card {
+        padding: 1rem;
+    }
+
+    .floating-number {
+        font-size: 1.5rem;
+        opacity: 0.05;
+    }
+
+    .floating-symbol {
+        font-size: 2rem;
+        opacity: 0.03;
+    }
+}

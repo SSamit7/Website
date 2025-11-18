@@ -1,0 +1,177 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}About - My Portfolio{% endblock %}
+
+{% block extra_css %}
+<style>
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes scaleIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .header-section {
+        animation: fadeInDown 0.8s ease-out;
+    }
+
+    .profile-image {
+        animation: scaleIn 0.8s ease-out 0.2s both;
+    }
+
+    .profile-content {
+        animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    .bio-section {
+        animation: fadeInUp 0.8s ease-out 0.3s both;
+    }
+
+    .profile-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+        border: 2px solid rgba(16, 185, 129, 0.3);
+        transition: all 0.4s ease;
+    }
+
+    .profile-image img:hover {
+        border-color: #10b981;
+        box-shadow: 0 0 25px rgba(16, 185, 129, 0.3);
+    }
+
+    .cv-button {
+        display: inline-block;
+        margin-top: 1.5rem;
+        padding: 0.75rem 1.5rem;
+        background-color: #10b981;
+        color: #030712;
+        border: 2px solid #10b981;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+    }
+
+    .cv-button:hover {
+        background-color: #059669;
+        border-color: #6ee7b7;
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+        transform: translateY(-2px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+<section class="pt-20 pb-16 bg-gradient-to-b from-gray-900 to-gray-950 border-b border-green-500/20 header-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold mb-4 glow">
+            <span class="text-green-400">&gt;</span> About Me
+        </h1>
+        <p class="text-xl text-gray-400">
+            Developer, Creator, and Problem Solver
+        </p>
+    </div>
+</section>
+
+<!-- Profile Section -->
+<section class="py-20 bg-gray-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            
+            <!-- Profile Image & Info -->
+            <div class="profile-image">
+                {% if profile and profile.profile_image %}
+                    <img src="{{ profile.profile_image.url }}" alt="{{ profile.full_name }}">
+                {% else %}
+                    <div class="w-full h-96 bg-gray-800 rounded-lg border-2 border-green-500/30 flex items-center justify-center">
+                        <p class="text-gray-500 text-center">Add profile image in /admin</p>
+                    </div>
+                {% endif %}
+
+                {% if profile and profile.cv_file %}
+                    <a href="{{ profile.cv_file.url }}" download class="cv-button">
+                        &gt; Download CV
+                    </a>
+                {% endif %}
+            </div>
+
+            <!-- Profile Content -->
+            <div class="lg:col-span-2 profile-content">
+                {% if profile %}
+                    <div class="mb-8">
+                        <h2 class="text-3xl font-bold text-green-300 mb-2">{{ profile.full_name }}</h2>
+                        <p class="text-cyan-300 text-xl mb-4">{{ profile.title }}</p>
+                        <p class="text-gray-400 text-sm">{{ profile.location }}</p>
+                    </div>
+
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center gap-3">
+                            <span class="text-green-400 font-bold">📍</span>
+                            <span class="text-gray-300">{{ profile.location }}</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-green-400 font-bold">✔</span>
+                            <span class="text-gray-300">{{ profile.years_experience }}+ Years Experience</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-green-400 font-bold">📧</span>
+                            <a href="mailto:{{ profile.email }}" class="text-cyan-400 hover:text-cyan-300">{{ profile.email }}</a>
+                        </div>
+                        {% if profile.phone %}
+                        <div class="flex items-center gap-3">
+                            <span class="text-green-400 font-bold">📱</span>
+                            <a href="tel:{{ profile.phone }}" class="text-cyan-400 hover:text-cyan-300">{{ profile.phone }}</a>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="bio-section">
+                        <h3 class="text-xl font-bold text-green-300 mb-4">&gt; About</h3>
+                        <p class="text-gray-300 leading-relaxed mb-4">{{ profile.about_intro }}</p>
+                        {% if profile.about_story %}
+                            <p class="text-gray-300 leading-relaxed">{{ profile.about_story }}</p>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="card">
+                        <p class="text-gray-400">No profile information yet. Add details in /admin → Profile Details</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

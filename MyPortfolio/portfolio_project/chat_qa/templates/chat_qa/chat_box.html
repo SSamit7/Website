@@ -1,0 +1,31 @@
+<!-- Simple Chat Box -->
+<div class="chat-box">
+    <h3>AI Assistant</h3>
+    <input type="text" id="chatQuestion" placeholder="Ask about web development...">
+    <button onclick="askQuestion()">Ask</button>
+    <div id="chatResponse"></div>
+</div>
+
+<script>
+function askQuestion() {
+    const question = document.getElementById('chatQuestion').value;
+    const responseDiv = document.getElementById('chatResponse');
+    
+    if (!question) return;
+    
+    responseDiv.innerHTML = 'Thinking...';
+    
+    fetch('/chat/api/ask/', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({question: question})
+    })
+    .then(response => response.json())
+    .then(data => {
+        responseDiv.innerHTML = data.response;
+    })
+    .catch(error => {
+        responseDiv.innerHTML = 'Error: ' + error.message;
+    });
+}
+</script>
